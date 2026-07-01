@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68.0", "wheel"]
+requires = ["setuptools>=82.0.1", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -31,9 +31,9 @@ classifiers = [
 ]
 dependencies = [
     "gradio>=5.0",
-    "fastapi>=0.110",
+    "fastapi>=0.138.2",
     "uvicorn[standard]>=0.29",
-    "pydantic>=2.7",
+    "pydantic>=2.13.4",
     "pydantic-settings>=2.3",
     "sqlalchemy[asyncio]>=2.0",
     "aiosqlite>=0.20",
@@ -56,21 +56,21 @@ guardweave = "guardweave.cli.app:app"
 
 [project.optional-dependencies]
 dev = [
-    "pre-commit>=3.6",
+    "pre-commit>=4.6.0",
     "ruff>=0.4",
-    "mypy>=1.10",
+    "mypy>=2.1.0",
     "types-PyYAML",
     "types-python-dateutil",
-    "bandit>=1.7",
+    "bandit>=1.9.4",
 ]
 test = [
-    "pytest>=8.0",
+    "pytest>=9.1.1",
     "pytest-asyncio>=1.4.0",
-    "pytest-cov>=5.0",
+    "pytest-cov>=7.1.0",
     "pytest-xdist>=3.5",
 ]
 docs = [
-    "mkdocs>=1.6",
+    "mkdocs>=1.6.1",
     "mkdocs-material>=9.5",
 ]
 all = [
