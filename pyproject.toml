@@ -61,7 +61,7 @@ dev = [
     "mypy>=1.10",
     "types-PyYAML",
     "types-python-dateutil",
-    "bandit>=1.7",
+    "bandit>=1.9.4",
 ]
 test = [
     "pytest>=8.0",
