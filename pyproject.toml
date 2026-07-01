@@ -30,7 +30,7 @@ classifiers = [
     "Framework :: AsyncIO",
 ]
 dependencies = [
-    "gradio>=5.0",
+    "gradio>=6.19.0",
     "fastapi>=0.138.2",
     "uvicorn[standard]>=0.29",
     "pydantic>=2.13.4",
