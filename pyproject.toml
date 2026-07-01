@@ -71,7 +71,7 @@ test = [
 ]
 docs = [
     "mkdocs>=1.6.1",
-    "mkdocs-material>=9.5",
+    "mkdocs-material>=9.7.6",
 ]
 all = [
     "guardweave[dev,test,docs]",
