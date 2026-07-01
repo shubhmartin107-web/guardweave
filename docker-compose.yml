@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  guardweave:
+    build: .
+    ports:
+      - "7860:7860"
+      - "8000:8000"
+    volumes:
+      - guardweave_data:/root/.guardweave
+      - ./policies:/app/policies
+    environment:
+      - GUARDWEAVE_ENV=production
+      - GUARDWEAVE_DB_PATH=/root/.guardweave/guardweave.db
+    command: >
+      sh -c "
+        guardweave init &&
+        guardweave policy apply policies/default.yaml 2>/dev/null || true &&
+        guardweave agent dashboard --host 0.0.0.0 --port 7860
+      "
+
+volumes:
+  guardweave_data:

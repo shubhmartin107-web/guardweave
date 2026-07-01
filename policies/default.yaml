@@ -1,0 +1,64 @@
+name: default
+version: "1.0"
+description: "Default balanced policy for development environments"
+trust_level: medium
+environment: development
+default_decision: ask
+
+rules:
+  - id: rule_allow_read
+    description: "Allow read operations by default"
+    match:
+      capabilities: ["file:read", "db:read"]
+    decision: allow
+    reason: "Read operations are generally low risk"
+
+  - id: rule_allow_network_http
+    description: "Allow HTTP network requests"
+    match:
+      capabilities: ["network:http"]
+    decision: allow
+    reason: "Standard HTTP requests are permitted"
+
+  - id: rule_deny_secrets
+    description: "Block access to secrets and credentials"
+    match:
+      capabilities: ["secrets:access"]
+    decision: deny
+    reason: "Secrets access requires explicit policy override"
+
+  - id: rule_deny_exfil
+    description: "Block sensitive data exfiltration"
+    match:
+      capabilities: ["data:exfiltrate-sensitive"]
+    decision: deny
+    reason: "Data exfiltration is prohibited"
+
+  - id: rule_deny_identity
+    description: "Block identity impersonation"
+    match:
+      capabilities: ["identity:impersonate"]
+    decision: deny
+    reason: "Identity impersonation is prohibited"
+
+  - id: rule_ask_write
+    description: "Ask for approval on write operations to sensitive paths"
+    match:
+      capabilities: ["file:write"]
+      targets: ["/etc/*", "/home/*/.ssh/*", "*/config.*"]
+    decision: ask
+    reason: "Writing to system or config files requires approval"
+
+  - id: rule_ask_exec
+    description: "Ask for approval on code and shell execution"
+    match:
+      capabilities: ["code:exec", "code:eval", "shell"]
+    decision: ask
+    reason: "Code execution requires human approval"
+
+  - id: rule_ask_db_write
+    description: "Ask for approval on database write operations"
+    match:
+      capabilities: ["db:write", "db:execute"]
+    decision: ask
+    reason: "Database modifications require approval"

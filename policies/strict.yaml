@@ -1,0 +1,79 @@
+name: strict
+version: "1.0"
+description: "Strict production policy with maximum safety controls"
+trust_level: sandbox
+environment: production
+default_decision: deny
+
+rules:
+  - id: rule_allow_read
+    description: "Allow read operations with logging"
+    match:
+      capabilities: ["file:read"]
+    decision: allow
+    reason: "Read operations are permitted"
+
+  - id: rule_allow_db_read
+    description: "Allow database read operations"
+    match:
+      capabilities: ["db:read"]
+    decision: allow
+    reason: "Database reads are permitted"
+
+  - id: rule_allow_network_http_whitelist
+    description: "Allow HTTP to approved domains only"
+    match:
+      capabilities: ["network:http"]
+      targets: ["https://api.example.com/*", "https://*.trusted-domain.com/*"]
+    decision: allow
+    reason: "Only approved API endpoints are accessible"
+
+  - id: rule_ask_file_write
+    description: "Require approval for any file write"
+    match:
+      capabilities: ["file:write", "file:delete"]
+    decision: ask
+    reason: "File modifications in production require approval"
+
+  - id: rule_ask_code_exec
+    description: "Require approval for code execution"
+    match:
+      capabilities: ["code:exec", "code:eval", "shell"]
+    decision: ask
+    reason: "Code execution in production requires explicit approval"
+
+  - id: rule_ask_api_call
+    description: "Require approval for API calls"
+    match:
+      capabilities: ["api:call"]
+    decision: ask
+    reason: "External API calls require approval"
+
+  - id: rule_deny_file_exec
+    description: "Block file execution in production"
+    match:
+      capabilities: ["file:execute"]
+    decision: deny
+    reason: "File execution is prohibited in production"
+
+  - id: rule_deny_network_raw
+    description: "Block raw network access"
+    match:
+      capabilities: ["network:raw"]
+    decision: deny
+    reason: "Raw network access is prohibited"
+
+  - id: rule_deny_secrets
+    description: "Block secrets access"
+    match:
+      capabilities: ["secrets:access"]
+    decision: deny
+    reason: "Secrets access is strictly prohibited"
+
+  - id: rule_deny_dangerous
+    description: "Block all dangerous operations"
+    match:
+      capabilities: ["data:exfiltrate-sensitive", "identity:impersonate",
+                     "policy:modify", "audit:modify", "agent:spawn", "agent:terminate"]
+    decision: deny
+    reason: "These operations are prohibited in production"
