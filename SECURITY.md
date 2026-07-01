@@ -12,7 +12,7 @@ GuardWeave takes security seriously. If you discover a security vulnerability,
 please follow these steps:
 
 1. **Do not** disclose the vulnerability publicly
-2. Email the maintainers at [INSERT EMAIL] with details
+2. Email the maintainers at [shubhmartin107@gmail.com] with details
 3. Include steps to reproduce and potential impact
 4. Allow time for the fix to be deployed
 
